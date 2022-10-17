@@ -29,7 +29,12 @@
 ## Installation
 
 ```bash
-$ npm install
+$ npm install --force
+```
+## migration
+
+```bash
+$ npm run setup
 ```
 
 ## Running the app
