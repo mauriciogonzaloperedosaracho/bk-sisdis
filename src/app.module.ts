@@ -4,11 +4,15 @@ import { PostsModule } from './posts/post.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { CommonModule } from './common/common.module';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+    }),
+    MongooseModule.forRoot('mongodb://localhost:27017/nestjs', {
+      connectionName: 'nestjs',
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
