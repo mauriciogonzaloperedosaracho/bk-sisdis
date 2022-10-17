@@ -11,9 +11,7 @@ import { MongooseModule } from '@nestjs/mongoose';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    MongooseModule.forRoot('mongodb://localhost:27017/nestjs', {
-      connectionName: 'nestjs',
-    }),
+    MongooseModule.forRoot('mongodb://127.0.0.1:27017/nest1'),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({

@@ -4,34 +4,40 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Postt } from '../entities/post.entity';
 // import { UpdatePostDto } from './dto/update-post.dto';
 import { Repository } from 'typeorm';
-
+import { InjectModel } from '@nestjs/mongoose';
+import { PostS, PostSDocument } from './schemas/post.schema';
+import { Model } from 'mongoose';
 @Injectable()
 export class PostsService {
-  constructor(@InjectRepository(Postt) private tasksRepo: Repository<Postt>) {}
+  constructor(
+    @InjectRepository(Postt) private postRepo: Repository<Postt>,
+    @InjectModel(PostS.name) private postSModule: Model<PostSDocument>,
+  ) {}
 
   findAll() {
-    return this.tasksRepo.find();
+    return this.postRepo.find();
   }
 
   findOne(id: number) {
-    return this.tasksRepo.findOne(id);
+    return this.postRepo.findOne(id);
   }
 
-  create(body: any) {
-    const newTask = new Postt();
-    newTask.name = body.name;
-    // const newTask = this.tasksRepo.create(body);
-    return this.tasksRepo.save(newTask);
+  async create(body: any) {
+    this.postSModule.create(body);
+    const newPost = new Postt();
+    newPost.name = body.name;
+    // const newPost = this.postRepo.create(body);
+    return this.postRepo.save(newPost);
   }
 
   async update(id: number, body: any) {
-    const task = await this.tasksRepo.findOne(id);
-    this.tasksRepo.merge(task, body);
-    return this.tasksRepo.save(task);
+    const post = await this.postRepo.findOne(id);
+    this.postRepo.merge(post, body);
+    return this.postRepo.save(post);
   }
 
   async remove(id: number) {
-    await this.tasksRepo.delete(id);
+    await this.postRepo.delete(id);
     return true;
   }
 }
