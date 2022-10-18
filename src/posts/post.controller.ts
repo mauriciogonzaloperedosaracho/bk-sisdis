@@ -1,15 +1,7 @@
 // import { UpdatePostDto } from './dto/update-post.dto';
 import { PostsService } from './post.service';
 // import { CreatePostDto } from './dto/create-post.dto';
-import {
-  Controller,
-  Post,
-  Get,
-  Body,
-  Param,
-  Put,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Post, Get, Body, Param } from '@nestjs/common';
 
 @Controller('posts')
 export class PostController {
@@ -25,7 +17,7 @@ export class PostController {
     return this.postsService.findOne(id);
   }
 
-  @Post('/sql')
+  @Post()
   create(@Body() body: any) {
     return this.postsService.create(body);
   }
@@ -33,15 +25,5 @@ export class PostController {
   @Post('/nosql')
   create2(@Body() body: any) {
     return this.postsService.create2(body);
-  }
-
-  @Put(':id')
-  update(@Param('id') id: number, @Body() body: any) {
-    return this.postsService.update(id, body);
-  }
-
-  @Delete(':id')
-  delete(@Param('id') id: number) {
-    return this.postsService.remove(id);
   }
 }
