@@ -25,9 +25,14 @@ export class PostController {
     return this.postsService.findOne(id);
   }
 
-  @Post()
+  @Post('/sql')
   create(@Body() body: any) {
     return this.postsService.create(body);
+  }
+
+  @Post('/nosql')
+  create2(@Body() body: any) {
+    return this.postsService.create2(body);
   }
 
   @Put(':id')

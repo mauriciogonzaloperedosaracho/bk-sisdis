@@ -17,17 +17,23 @@ export class PostsService {
   findAll() {
     return this.postRepo.find();
   }
+  findAll2() {
+    return this.postSModule.find();
+  }
 
   findOne(id: number) {
     return this.postRepo.findOne(id);
   }
 
   async create(body: any) {
-    this.postSModule.create(body);
     const newPost = new Postt();
     newPost.name = body.name;
     // const newPost = this.postRepo.create(body);
     return this.postRepo.save(newPost);
+  }
+  async create2(body: any) {
+    const postCreated = await this.postSModule.create(body);
+    return postCreated;
   }
 
   async update(id: number, body: any) {
